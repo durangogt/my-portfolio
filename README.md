@@ -2,7 +2,8 @@
 This is my professional portfolio. It uses AWS and ReactJS.
 
 ## Technologies Used
-Choco
-Git and github
-SSH
-Lambda
+* Choco
+* Git and github
+* SSH
+* Lambda
+* Route53
