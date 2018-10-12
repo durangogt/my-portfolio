@@ -1,2 +1,3 @@
-# my-portfolio
-This is my professional portfolio
+# James Ickes's portfolio
+This is my professional portfolio. It uses AWS and ReactJS.
+
