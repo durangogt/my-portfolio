@@ -10,3 +10,7 @@ This is my professional portfolio. It uses AWS and ReactJS.
 * CloudFront
 * S3
 * AWS Certificate Manager
+* CodeBuild and CodePipeline
+* Python
+* HTML
+
