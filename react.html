@@ -124,7 +124,7 @@
                 let msgBox = document.querySelector(".messageBox");
                 assert.isDefined(msgBox, "Message box is in the document.");
                 assert.include(msgBox.classList.value, "hidden", "Message box is hidden");
-                assertequal(msgBox.innerText, "", "Message box is empty");
+                assert.equal(msgBox.innerText, "", "Message box is empty");
             });
 
             it("Rendered an error when name is empty", () => {
