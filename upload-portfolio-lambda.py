@@ -8,6 +8,7 @@ def lambda_handler(event, context):
     sns = boto3.resource('sns')
     topic = sns.Topic('arn:aws:sns:us-east-1:397662609343:deployPortfolioTopic')
     
+    # Default location info incase we run the CodeBuild manually
     location = {
         "bucketName": 'portfoliobuild.jamesickes.info',
         "objectKey": 'portfoliobuild.zip'
