@@ -14,3 +14,5 @@ This is my professional portfolio. It uses AWS and ReactJS.
 * AWS Certificate Manager
 * CodeBuild and CodePipeline
 * Chai & Mocha
+
+## TODO: check github issues list
