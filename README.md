@@ -5,12 +5,12 @@ This is my professional portfolio. It uses AWS and ReactJS.
 * Choco
 * Git and github
 * SSH
+* Python
+* HTML/CSS
 * Lambda
 * Route53
 * AWS CloudFront
 * S3
 * AWS Certificate Manager
 * CodeBuild and CodePipeline
-* Python
-* HTML/CSS
 * Chai & Mocha
