@@ -7,7 +7,7 @@ This is my professional portfolio. It uses AWS and ReactJS.
 * SSH
 * Lambda
 * Route53
-* CloudFront
+* AWS CloudFront
 * S3
 * AWS Certificate Manager
 * CodeBuild and CodePipeline
