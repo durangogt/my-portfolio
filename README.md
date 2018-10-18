@@ -7,6 +7,7 @@ This is my professional portfolio. It uses AWS and ReactJS.
 * SSH
 * Python
 * HTML/CSS
+* Webpack & NPM
 * Lambda
 * Route53
 * AWS CloudFront
@@ -16,4 +17,6 @@ This is my professional portfolio. It uses AWS and ReactJS.
 * Chai & Mocha
 * Facebook's Jest & Airbnb's Enzyme
 
-## TODO: check github issues list
+## TODO: 
+* check github issues list
+* Add test for auto closing the modal
