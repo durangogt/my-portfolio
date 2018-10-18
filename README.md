@@ -30,6 +30,13 @@ This is my professional portfolio. It uses AWS and ReactJS.
 * AWS Certificate Manager
 * Airbnb's Enzyme
 
+## Notes on execution:
+* For local execution; ws
+* For local unit test execution: npm test or npm run test-watch
+* For local updates to js files make sure to run webpack updates: npm run webpack-watch
+* CloudFront default TTL set back to 86400 (24 hrs.).
+* CloudFront Alarms setup for Error Rates >= 1% will email & text me.
+
 ## TODO: 
 * check github issues list
 * Add test for auto closing the modal
