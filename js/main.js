@@ -14,8 +14,18 @@ const myWork = [
         }
     },
     {
+        'title': "Alexa AWS Notes Reader",
+        'href': "http://www-dudespollyaudioposts.s3-website-us-east-1.amazonaws.com/",
+        'desc': "Built from the A Cloud Guru's text to speech lab. I extended it by dynamically filling the mp3 files from the s3 bucket into an array in the Lambda function. Then the Alexa skill upon asking to 'play my aws notes' will pick a random mp3 item from the array to play. The initial example from A Cloud Guru, just had you hard coding the mp3 file links into a variable. I wanted to have something more dymamic for studying my notes.",
+        'image': {
+            'desc': "Example screenshot of Lambda function code from this project.",
+            'src': "images/example1a.png",
+            'comment': ""
+        }
+    },    
+    {
         'title': "PyGame Board Game",
-        'href': "https://example.com",
+        'href': "https://github.com/durangogt/aggravation/tree/TrackMarbles_n_Score",
         'desc': "This is my attempt at using the Python module PyGame to create a simple game. I used this to refresh my Python proficiency.",
         'image': {
             'desc': "Example screenshot main game loop in my pygame 'Aggravation'.",
