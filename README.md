@@ -40,3 +40,5 @@ This is my professional portfolio. It uses AWS and ReactJS.
 ## TODO: 
 * check github issues list
 * Add test for auto closing the modal
+
+### Credits:: This project's base setup comes from the A Cloud Guru's great course - [Create a Serverless Portfolio with AWS and React](https://acloud.guru/course/serverless-portfolio-with-react/dashboard)

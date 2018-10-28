@@ -42,7 +42,17 @@ const myWork = [
             'src': "images/example3.png",
             'comment': ""
         }
-    }        
+    },
+    {
+        'title': "Wildrydes",
+        'href': "http://wildrydes.jamesickes.info",
+        'desc': "This is my rendition of AWS's fictional company used in workshops, WildRydes, Unicorn Uber. I used this lab to learn more about AWS's Cognito via the aws-serverless-workshops project. It uses a static web resource with S3, Cognito to manage users and authentication, and builds a RESTful API for backend processing using API Gateway, Lambda & Dynamo DB.",
+        'image': {
+            'desc': "Example screenshot of the WildRydes front end graphics.",
+            'src': "images/wildrydes.png",
+            'comment': ""
+        }
+    }
 ]
 
 ReactDOM.render(<ExampleWork work={myWork}/>, document.getElementById('example-work'));
