@@ -1,3 +1,5 @@
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/durangogt/my-portfolio) 
+
 # James Ickes's portfolio
 This is my professional portfolio. It uses AWS and ReactJS.
 
