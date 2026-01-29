@@ -220,7 +220,7 @@ This project's base setup was inspired by A Cloud Guru's excellent course: [Crea
 
 **James Ickes**
 - Email: james.ickes@gmail.com
-- LinkedIn: [jim-ickes-79b49614](https://www.linkedin.com/in/jim-ickes-79b49614/)
+- LinkedIn: [james-ickes](https://www.linkedin.com/in/james-ickes?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app)
 - GitHub: [@durangogt](https://github.com/durangogt)
 
 ---
