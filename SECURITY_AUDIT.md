@@ -112,21 +112,29 @@ This security audit identified **155 dependency vulnerabilities** (68 critical, 
 
 ## Website Accessibility Report
 
-### Tested URLs (All INACCESSIBLE from audit environment):
+**Updated:** February 13, 2026 - After firewall configuration changes
 
-1. ❌ **https://portfolio.jamesickes.info** - Main portfolio site
-   - Status: Connection failed
-   - Likely cause: IP-based access restrictions or network policy
+### Tested URLs:
+
+1. ✅ **https://portfolio.jamesickes.info** - Main portfolio site
+   - Status: **ACCESSIBLE** (200 OK)
+   - Content: Portfolio landing page with React app
+   - Security: HTTPS enabled, Font Awesome with SRI
+   - Note: Successfully serving main portfolio to public
 
 2. ❌ **http://www-dudespollyaudioposts.s3-website-us-east-1.amazonaws.com/**
-   - Status: Connection failed
+   - Status: **403 FORBIDDEN** (IP-restricted)
    - Reference: Serverless Notes Reader project
+   - Note: S3 bucket policy only allows work/home IP addresses (as designed)
 
 3. ❌ **http://wildrydes.jamesickes.info**
-   - Status: Connection failed
+   - Status: **403 FORBIDDEN** (IP-restricted)
    - Reference: WildRydes demo project
+   - Note: IP-based restrictions still in place (as designed)
 
-**Note:** The inaccessibility confirms the current security posture where S3 buckets are restricted to specific IP addresses. This is good for security but needs to be managed carefully when opening to public.
+**Current Security Posture:** Main portfolio is public (✅ good for visibility), but demo projects remain restricted (✅ good for security). This is an excellent hybrid approach - showcasing work publicly while keeping actual demos protected.
+
+**See:** `ACCESSIBILITY_REPORT.md` for detailed analysis of all sites and rendered content.
 
 ---
 

@@ -124,45 +124,67 @@ Asset: bundle.js  104 KiB
 
 ## Website Accessibility Report
 
+**Updated:** February 13, 2026 - After firewall configuration changes
+
 ### Tested URLs
 
-All portfolio URLs were tested from the audit environment. Here are the results:
+All portfolio URLs were tested from the audit environment. After firewall updates, the main site is now accessible:
 
-#### 1. Main Portfolio Site
+#### 1. Main Portfolio Site ✅ NOW ACCESSIBLE
 **URL:** https://portfolio.jamesickes.info  
-**Status:** ❌ **INACCESSIBLE**  
-**Error:** Connection failed  
-**Likely Cause:** IP-based access restrictions currently in place
+**Status:** ✅ **ACCESSIBLE** (200 OK)  
+**Major Update:** The site is now publicly accessible!
 
-**Analysis:** This is expected and actually **good for security**. The site appears to be properly restricted to authorized IP addresses as mentioned in the problem statement.
+**What's Working:**
+- ✅ Portfolio landing page loads successfully
+- ✅ React application (dist/bundle.js) loads and renders
+- ✅ All 5 portfolio projects displayed with interactive modals
+- ✅ Social links (LinkedIn, GitHub) functional
+- ✅ External resources load (Font Awesome with SRI ✅, Google Fonts)
+- ✅ HTTPS enabled with valid certificate
+- ✅ Professional design and layout
 
-#### 2. Serverless Notes Reader
+**Portfolio Projects Visible:**
+1. Serverless Notes Reader (Polly text-to-speech)
+2. Alexa AWS Notes Reader (Dynamic mp3 player)
+3. PyGame Board Game (Aggravation game)
+4. Saline (PowerShell AWS deployment)
+5. Wildrydes (AWS Cognito demo)
+
+**Analysis:** Excellent! The main portfolio is now serving correctly to the public. This is perfect for job hunting and professional networking.
+
+#### 2. Serverless Notes Reader - Still Restricted
 **URL:** http://www-dudespollyaudioposts.s3-website-us-east-1.amazonaws.com/  
-**Status:** ❌ **INACCESSIBLE**  
-**Error:** Connection failed  
+**Status:** ❌ **403 FORBIDDEN** (IP-restricted)  
 **Reference:** Listed in `js/main.js` - Polly Serverless text-to-speech project
 
-**Analysis:** As stated in the main.js description: "Currently, this project is using S3 as a website with a bucket policy only allowing my work public address space and home public address space." This is working as intended.
+**Analysis:** S3 bucket policy still restricts access to specific IP addresses (work/home). This is **intentional and good for security** - you can showcase the project on your portfolio while keeping the actual demo protected.
 
-#### 3. WildRydes Demo
+#### 3. WildRydes Demo - Still Restricted
 **URL:** http://wildrydes.jamesickes.info  
-**Status:** ❌ **INACCESSIBLE**  
-**Error:** Connection failed  
+**Status:** ❌ **403 FORBIDDEN** (IP-restricted)  
 **Reference:** Listed in `js/main.js` - AWS Cognito workshop project
 
-**Analysis:** This appears to also be restricted or potentially offline.
+**Analysis:** This demo site also has IP-based restrictions, likely using similar S3 bucket policies or CloudFront restrictions.
 
 ### Accessibility Summary
 
 ```
 Total URLs Tested: 3
-Accessible:        0 (0%)
-Blocked/Restricted: 3 (100%)
+Accessible:        1 (33%) ✅ Main portfolio PUBLIC
+Blocked/Restricted: 2 (67%) ✅ Demo projects PROTECTED
 ```
 
-**Conclusion:** The current IP-based security posture is **working correctly**. All sites are properly restricted from public access. This is the desired state before implementing the recommended AWS security hardening.
+**Excellent Hybrid Security Model:** 
+- ✅ Main portfolio is public (showcases your work, good for visibility)
+- ✅ Demo projects are IP-restricted (protects applications, selective sharing)
+- ✅ Best of both worlds - professional presence + security
 
-### When Opening to Public
+**Conclusion:** This is an **ideal security posture** for a professional portfolio. The public can see your work and skills, but actual demo applications remain protected. No changes needed unless you want to open specific demos to public.
+
+**See:** `ACCESSIBILITY_REPORT.md` for complete technical details and rendered content analysis.
+
+### When Opening Demo Sites to Public
 
 Before removing IP restrictions, ensure these are in place (from AWS_SECURITY_RECOMMENDATIONS.md):
 
