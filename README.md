@@ -188,10 +188,28 @@ my-portfolio/
 
 ## 🔒 Security
 
-- Dependencies are regularly updated for security patches
-- AWS IAM follows the principle of least privilege
-- CloudFront serves content over HTTPS only
-- CloudWatch alarms monitor error rates and notify on anomalies
+This portfolio takes security seriously. Recent security improvements include:
+
+- ✅ **Regular Security Audits**: See `SECURITY_AUDIT.md` for latest findings
+- ✅ **Dependency Management**: Critical vulnerabilities addressed (merge package updated)
+- ✅ **Subresource Integrity**: External resources validated with SRI hashes
+- ✅ **Environment Variables**: AWS resources use environment variables (no hardcoded values)
+- ✅ **HTTPS Only**: CloudFront enforces HTTPS with AWS Certificate Manager
+- ✅ **Private S3**: S3 buckets restricted via CloudFront Origin Access Control
+- ✅ **Monitoring**: CloudWatch alarms notify on error rates >= 1%
+- ✅ **Security Policy**: See `SECURITY.md` for responsible disclosure
+
+### Security Documentation
+- 📋 [Security Audit Report](SECURITY_AUDIT.md) - Comprehensive security review findings
+- 🛡️ [Security Policy](SECURITY.md) - How to report vulnerabilities
+- ⚙️ [AWS Lambda Setup](AWS_LAMBDA_SETUP.md) - Environment variable configuration
+- 📖 [AWS Security Recommendations](AWS_SECURITY_RECOMMENDATIONS.md) - Hardening guide
+
+### Known Vulnerabilities
+As of February 2026, there are 152 known vulnerabilities in development dependencies (primarily Babel, Webpack, and Jest). These are legacy dependencies from 2017-2018 and **do not affect production** since they're not included in the deployed bundle. A major dependency upgrade is planned but requires significant refactoring.
+
+**Production Dependencies**: ✅ Secure (merge package updated to 2.1.1)  
+**Development Dependencies**: ⚠️ 152 vulnerabilities (not in production bundle)
 
 ## 🐛 Known Issues & TODO
 
