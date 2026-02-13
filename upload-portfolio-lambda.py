@@ -3,14 +3,22 @@ from botocore.client import Config
 import io
 import zipfile
 import mimetypes
+import os
 
 def lambda_handler(event, context):
-    sns = boto3.resource('sns')
-    topic = sns.Topic('arn:aws:sns:us-east-1:397662609343:deployPortfolioTopic')
+    # Use environment variables for AWS resources instead of hardcoding
+    sns_topic_arn = os.environ.get('SNS_TOPIC_ARN', 'arn:aws:sns:us-east-1:397662609343:deployPortfolioTopic')
     
-    # Default location info incase we run the CodeBuild manually
+    sns = boto3.resource('sns')
+    topic = sns.Topic(sns_topic_arn)
+    
+    # Default location info in case we run the CodeBuild manually
+    # Use environment variables for bucket names to avoid hardcoding
+    build_bucket_name = os.environ.get('BUILD_BUCKET_NAME', 'portfoliobuild.jamesickes.info')
+    portfolio_bucket_name = os.environ.get('PORTFOLIO_BUCKET_NAME', 'portfolio.jamesickes.info')
+    
     location = {
-        "bucketName": 'portfoliobuild.jamesickes.info',
+        "bucketName": build_bucket_name,
         "objectKey": 'portfoliobuild.zip'
     }
     
@@ -23,10 +31,9 @@ def lambda_handler(event, context):
                     location = artifact["location"]["s3Location"]
                     
         print("Building portfolio from " + str(location))
-        #s3 = boto3.resource('s3', config=Config(signature_version='s3v4'))
         s3 = boto3.resource('s3')
 
-        portfolio_bucket = s3.Bucket('portfolio.jamesickes.info')
+        portfolio_bucket = s3.Bucket(portfolio_bucket_name)
         build_bucket = s3.Bucket(location["bucketName"])
         
         portfolio_zip = io.BytesIO()
@@ -45,6 +52,7 @@ def lambda_handler(event, context):
             codepipeline = boto3.client('codepipeline')
             codepipeline.put_job_success_result(jobId=job["id"])
             
-    except:
-        topic.publish(Subject="Portfolio Deploy Failed", Message="This Portfolio was not deployed successfully!")
+    except Exception as e:
+        error_message = f"Portfolio deployment failed: {str(e)}"
+        topic.publish(Subject="Portfolio Deploy Failed", Message=error_message)
         raise
