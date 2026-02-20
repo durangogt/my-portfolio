@@ -8,7 +8,9 @@ A professional portfolio website showcasing my projects and experience, built wi
 
 - **Serverless Architecture**: Fully hosted on AWS with no servers to manage
 - **React Frontend**: Modern, component-based UI with interactive portfolio gallery
-- **CI/CD Pipeline**: Automated deployment using AWS CodePipeline and CodeBuild
+- **OIDC-Based Deployment**: Keyless GitHub Actions deployment using OpenID Connect – no long-lived AWS credentials stored in GitHub
+- **Infrastructure as Code**: All AWS resources managed with modular Terraform (CloudFront, S3, Route 53)
+- **Secure S3 Origin**: S3 bucket is private; content served exclusively through CloudFront Origin Access Control (OAC) over HTTPS
 - **Global CDN**: CloudFront distribution for fast worldwide access
 - **Responsive Design**: Works seamlessly across all device sizes
 - **Modal Gallery**: Interactive project showcase with detailed descriptions
@@ -19,14 +21,26 @@ A professional portfolio website showcasing my projects and experience, built wi
 
 ### AWS Services Used
 
-- **S3** - Static website hosting and object storage
-- **CloudFront** - Content delivery network (CDN) with 24-hour cache TTL
+- **S3** - Static website hosting and object storage (private bucket, accessible only via CloudFront OAC)
+- **CloudFront** - CDN with HTTPS enforcement, Origin Access Control, and 24-hour cache TTL
 - **Route 53** - DNS management for custom domain
-- **CodeBuild & CodePipeline** - Automated CI/CD pipeline
-- **Lambda** - Serverless functions for deployment automation
-- **IAM** - Security and access management
+- **IAM / OIDC** - Keyless GitHub Actions authentication via OpenID Connect
 - **Certificate Manager** - SSL/TLS certificates for HTTPS
 - **CloudWatch** - Monitoring and alarms (error rate >= 1%)
+
+### Infrastructure as Code
+
+All AWS resources are managed with Terraform, organized by service under [`terraform/`](terraform/):
+
+| File | Contents |
+|------|----------|
+| `main.tf` | Provider & remote-state backend configuration |
+| `variables.tf` | Input variables (domain names, region, etc.) |
+| `s3.tf` | Portfolio & build artifact S3 buckets |
+| `cloudfront.tf` | CloudFront distribution with Origin Access Control |
+| `r53.tf` | Route 53 alias records pointing to CloudFront |
+| `outputs.tf` | Useful outputs (CloudFront URL, distribution ID, bucket name) |
+| `deploy.sh` | Shell script to build, sync to S3, and invalidate CloudFront |
 
 ### Frontend Stack
 
@@ -148,29 +162,56 @@ test('component renders correctly', () => {
 
 ## 🚢 Deployment
 
-The project uses AWS CodePipeline for automated deployment:
+### Automated Deployment via GitHub Actions
 
-1. **Push to GitHub**: Commits to the main branch trigger the pipeline
-2. **CodeBuild**: Builds the project using `buildspec.yml`
-3. **S3 Upload**: Artifacts are uploaded to the S3 bucket
-4. **CloudFront**: CDN cache is invalidated (or wait 24 hours for automatic refresh)
+The [`deploy-portfolio`](.github/workflows/deploy-portfolio.yml) workflow deploys the site to AWS using OIDC (keyless) authentication:
+
+1. Go to **Actions → Deploy Portfolio** in the GitHub repository
+2. Click **Run workflow** (optionally check *Skip npm build* to redeploy without rebuilding)
+3. Once complete, the **CloudFront URL** is printed in the workflow summary
+
+**Required secret:** `AWS_OIDC_ROLE` – ARN of the IAM role that GitHub Actions assumes via OIDC.
+
+```yaml
+- name: Configure AWS credentials
+  uses: aws-actions/configure-aws-credentials@v4
+  with:
+    role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
+    role-session-name: deploy-portfolio-${{ github.run_id }}
+    aws-region: us-east-1
+```
 
 ### Manual Deployment
 
-If you need to deploy manually:
+Use the `deploy.sh` script directly after configuring AWS credentials:
 
-1. Build the project: `npm run webpack`
-2. Upload files to your S3 bucket
-3. Invalidate CloudFront cache if needed
+```bash
+export PORTFOLIO_BUCKET_NAME="portfolio.jamesickes.info"
+export CLOUDFRONT_DIST_ID="<your-distribution-id>"
+bash terraform/deploy.sh
+```
 
-**Note**: Due to CloudFront's 24-hour default TTL, changes may take up to a day to appear without manual cache invalidation.
+### Terraform Infrastructure
+
+```bash
+cd terraform
+terraform init
+terraform plan
+terraform apply
+```
+
+> **Importing existing resources:** Use `terraform import` to bring existing AWS resources under Terraform management before running `terraform apply` for the first time.
+
+**Note:** Due to CloudFront's 24-hour default TTL, changes may take up to a day to appear without manual cache invalidation (handled automatically by `deploy.sh`).
 
 ## 📁 Project Structure
 
 ```
 my-portfolio/
 ├── .github/
-│   └── copilot-instructions.md  # GitHub Copilot development guide
+│   └── workflows/
+│       ├── deploy-portfolio.yml  # Manual deploy via GitHub Actions (OIDC)
+│       └── test.yml              # OIDC credential smoke-test
 ├── __tests__/                   # Jest test files
 ├── images/                      # Project screenshots and assets
 ├── js/                          # React components
@@ -178,9 +219,17 @@ my-portfolio/
 │   ├── example-work.js         # Portfolio gallery component
 │   └── example-work-modal.js   # Project detail modal
 ├── styles/                      # CSS stylesheets
+├── terraform/                   # Infrastructure as Code
+│   ├── main.tf                 # Provider & backend configuration
+│   ├── variables.tf            # Input variables
+│   ├── s3.tf                   # S3 buckets
+│   ├── cloudfront.tf           # CloudFront distribution & OAC
+│   ├── r53.tf                  # Route 53 DNS records
+│   ├── outputs.tf              # Output values (CloudFront URL, etc.)
+│   └── deploy.sh               # Build + S3 sync + CloudFront invalidation
 ├── .babelrc                     # Babel configuration
-├── .gitignore                   # Git ignore rules
-├── buildspec.yml               # AWS CodeBuild configuration
+├── .gitignore                   # Git ignore rules (includes .terraform/)
+├── buildspec.yml               # AWS CodeBuild configuration (legacy)
 ├── index.html                  # Main HTML template
 ├── package.json                # NPM dependencies and scripts
 └── webpack.config.js           # Webpack bundler configuration
