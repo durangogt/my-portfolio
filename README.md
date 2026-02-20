@@ -219,7 +219,7 @@ This project's base setup was inspired by A Cloud Guru's excellent course: [Crea
 ## 📧 Contact
 
 **James Ickes**
-- LinkedIn: [james-ickes](www.linkedin.com/in/james-ickes)
+- LinkedIn: [james-ickes](https://www.linkedin.com/in/james-ickes)
 - GitHub: [@durangogt](https://github.com/durangogt)
 
 ---
