@@ -25,7 +25,7 @@ const myWork = [
     },    
     {
         'title': "PyGame Board Game",
-        'href': "https://github.com/durangogt/aggravation/tree/TrackMarbles_n_Score",
+        'href': "https://github.com/durangogt/aggravation",
         'desc': "This is my attempt at using the Python module PyGame to create a simple game. I used this to refresh my Python proficiency.",
         'image': {
             'desc': "Example screenshot main game loop in my pygame 'Aggravation'.",
