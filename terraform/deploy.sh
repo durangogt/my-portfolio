@@ -4,7 +4,7 @@
 # Usage:
 #   ./terraform/deploy.sh [--skip-build]
 #
-# Environment variables (required unless --skip-build is passed):
+# Environment variables (always required; --skip-build only skips npm/test/webpack):
 #   PORTFOLIO_BUCKET_NAME  – target S3 bucket (e.g. portfolio.jamesickes.info)
 #   CLOUDFRONT_DIST_ID     – CloudFront distribution ID for cache invalidation
 #
