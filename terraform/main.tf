@@ -10,8 +10,9 @@ terraform {
 
   backend "s3" {
     # Note: Terraform backend configuration does not support variable interpolation.
-    # This bucket name intentionally matches var.build_bucket_name in variables.tf.
-    bucket = "portfoliobuild.jamesickes.info"
+    # This bucket is a separate, pre-provisioned state bucket and must not be the same
+    # as var.build_bucket_name defined in variables.tf.
+    bucket = "portfolio-terraform-state-jamesickes"
     key    = "terraform/portfolio.tfstate"
     region = "us-east-1"
   }
