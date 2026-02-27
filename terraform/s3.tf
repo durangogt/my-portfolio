@@ -16,6 +16,25 @@ resource "aws_s3_bucket_versioning" "portfolio" {
   }
 }
 
+# Lifecycle configuration to clean up noncurrent versions and delete markers
+resource "aws_s3_bucket_lifecycle_configuration" "portfolio" {
+  bucket = aws_s3_bucket.portfolio.id
+
+  rule {
+    id     = "expire-noncurrent-versions-and-delete-markers"
+    status = "Enabled"
+
+    filter {}
+
+    noncurrent_version_expiration {
+      noncurrent_days = 30
+    }
+
+    expiration {
+      expired_object_delete_marker = true
+    }
+  }
+}
 # Block all public access; content is served exclusively through CloudFront OAC
 resource "aws_s3_bucket_public_access_block" "portfolio" {
   bucket = aws_s3_bucket.portfolio.id
